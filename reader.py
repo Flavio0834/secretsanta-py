@@ -1,4 +1,5 @@
 import csv
+import random
 
 
 class Reader:
@@ -17,7 +18,9 @@ class Reader:
                 self.data[self.datas[0][i]] = []
                 for j in range(1, l1):
                     self.data[self.datas[0][i]].append(self.datas[j][i])
-                print(self.data[self.datas[0][i]])
+
+            self.alone_sectors = dict()
+            self.alone_students = []
 
         self.classes = dict()
         for i in range(len(self.data["Nom"])):
@@ -38,6 +41,28 @@ class Reader:
 
     def get_students_by_class_number(self, class_number):
         return self.classes[class_number]
+
+    def clean_odd_classes(self):
+        for class_number in self.classes.keys():
+            if len(self.classes[class_number]) % 2 == 1:
+                k = random.randint(0, len(self.classes[class_number]) - 1)
+                if class_number[:-1] not in self.alone_sectors.keys():
+                    self.alone_sectors[class_number[:-1]] = [
+                        self.classes[class_number].pop(k)
+                    ]
+                else:
+                    self.alone_sectors[class_number[:-1]].append(
+                        self.classes[class_number].pop(k)
+                    )
+
+    def clean_odd_alone_sectors(self):
+        for sector in self.alone_sectors.keys():
+            if len(self.alone_sectors[sector]) % 2 == 1:
+                k = random.randint(0, len(self.alone_sectors[sector]) - 1)
+                self.alone_students.append(self.alone_sectors[sector].pop(k))
+
+    def get_alone_students(self):
+        return self.alone_students
 
 
 if __name__ == "__main__":
