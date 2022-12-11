@@ -21,6 +21,7 @@ class Chooser:
                 student2 = random.choice(copy)
                 while student2 == student:
                     student2 = random.choice(copy)
+                    print(student, student2, copy)
                 self.receivers.append(student2)
                 copy.remove(student2)
                 self.assignments[student] = student2
@@ -28,20 +29,22 @@ class Chooser:
         for sector in self.sectors.keys():
             copy = [stud for stud in self.sectors[sector]]
             for student in self.sectors[sector]:
-                student2 = student
+                student2 = random.choice(copy)
                 while student2 == student:
-                    k = random.randint(0, len(copy) - 1)
-                    student2 = copy[k]
-                self.receivers.append(copy.pop(k))
+                    student2 = random.choice(copy)
+                    print(student, student2, copy)
+                self.receivers.append(student2)
+                copy.remove(student2)
                 self.assignments[student] = student2
 
         copy = [stud for stud in self.alones]
         for student in self.alones:
-            student2 = student
+            student2 = random.choice(copy)
             while student2 == student:
-                k = random.randint(0, len(copy) - 1)
-                student2 = copy[k]
-            self.receivers.append(copy.pop(k))
+                student2 = random.choice(copy)
+                print(student, student2, copy)
+            self.receivers.append(student2)
+            copy.remove(student2)
             self.assignments[student] = student2
 
         return self.assignments
