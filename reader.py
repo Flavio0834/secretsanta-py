@@ -17,7 +17,7 @@ class Reader:
             for i in range(l2):
                 self.data[self.datas[0][i]] = []
                 for j in range(1, l1):
-                    self.data[self.datas[0][i]].append(self.datas[j][i])
+                    self.data[self.datas[0][i]].append(self.datas[j][i].strip())
 
             self.alone_sectors = dict()
             self.alone_students = []
@@ -29,11 +29,11 @@ class Reader:
                 not in self.classes.keys()
             ):
                 self.classes[self.data["Filière"][i] + self.data["Classe"][i]] = [
-                    self.data["Nom"][i] + self.data["Prénom"][i]
+                    self.data["Nom"][i] + " " + self.data["Prénom"][i]
                 ]
             else:
                 self.classes[self.data["Filière"][i] + self.data["Classe"][i]].append(
-                    self.data["Nom"][i] + self.data["Prénom"][i]
+                    self.data["Nom"][i] + " " + self.data["Prénom"][i]
                 )
 
     def get_classes(self):
